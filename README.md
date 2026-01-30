@@ -46,7 +46,18 @@ The database is structured into three primary modules to ensure data integrity a
 1. **Create the Database:**
    ```sql
    CREATE DATABASE "CarBookingGroup37";
+2. **Import the Schema: Using the terminal:**
+   ```psql -U your_username -d CarBookingGroup37 -f CarBookingGroup37.sql
+### Entity Relationship Highlights
+* **Relational Integrity:** Uses Foreign Keys to ensure every rental is linked to an active customer, a valid car, and registered shop locations.
+* **Data Uniqueness:** Implements unique constraints on shop names, car models, and driver's license numbers to prevent duplicate entries.
+* Sequencing: Utilizes PostgreSQL sequences for automated ID generation across all primary tables.
 
 ---
+
+### Sample Data
+The schema includes a sample customer record for testing:
+* **Test User:** John123
+* **License:** 00007543
 ### ERD diagram 
 <img width="1634" height="917" alt="ERD Diagram from Pgadmin" src="https://github.com/user-attachments/assets/faa86517-5fa0-429b-80ff-7dc1b88b8e94" />
