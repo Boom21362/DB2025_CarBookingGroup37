@@ -1,0 +1,93 @@
+/*1. Suppose user have register with username, password, name,telephone number, email, driver_license (dl_number, date_of_brith, expiry_date), and address with this information (supposing user is the 67th members of the site )
+Username : John123
+Password : John88
+First name : John
+Last name : Doe
+Primary phone number : 085-5555555
+Secondary phone number : 087-7455654
+Emergency phone number : 092-6346561
+Email : johndoe123@example.com
+Driver License Number : 00007543
+Date of birth: 2000-01-01
+Expiry date : 2030-12-31
+Address : 123,Some Road,Some District, Some Country
+
+[account_status is used for user flagging. If account_status is false ,user is getting banned or on investigation which will caused account to unusable/freeze]
+Query:*/
+
+INSERT INTO Customer (customer_id, username, pwd, email, phone_number, dl_number, address, account_status)
+VALUES (67,'John123','John88','johndoe123@example.com','0855555555','00007543',
+'123,Some Road,Some District, Some Country ',true);
+
+INSERT INTO driver_license (customer_id, dl_number, fname, lname, date_of_birth, expire_date)
+VALUES (67, '00007543', 'John', 'Doe', '2000-01-01', '2030-12-31');
+
+INSERT INTO phone_number (customer_id,primary_number,secondary_number,emergency_number)
+VALUES (67,'085-5555555', '087-7455654', '087-7455654');
+
+/*2.1. Suppose same user ,which have user_id '67', is login (update logs) [logI/O is used for online status. If logI/O is false, user is inactive (logged-out) but if logI/O is true then user is active (logged-in)]
+
+Query:*/
+
+INSERT INTO logs (log_id, customer_id, "logI/O", timestamp)
+VALUEs(108,67,true,now());
+
+/*2.2. Suppose same user ,which have user_id '67', is logout (update logs) [logI/O is used for online status. If logI/O is false, user is inactive (logged-out) but if logI/O is true then user is active (logged-in)]
+
+Query:*/
+
+INSERT INTO logs (log_id, customer_id, "logI/O", timestamp)
+VALUEs(109,67,false,now());
+
+/83. Suppose user ,which have user_id '67',is booking a car ,car_id '1234', from shop ,shop_id '30', from 2026-04-15 to 2026-04-18 and will return at the same shop with no discount
+
+Query:*/
+
+INSERT INTO "Rental" (customer_id,car_id,pickup_date,return_date,discount,"pickupShop_id","returnShop_id",rental_status,mileage_start,mileage_end,price_per_day) 
+VALUES (67,1234,'2026-04-15','2026-04-18',0,30,30,true,0,null,250);
+
+/*4. Suppose same user ,which have user_id '67', want to view all of his/her booking which are still active
+
+Query:*/
+
+SELECT * FROM "Rental"
+WHERE customer_id = 67 
+AND return_date >= CURRENT_DATE;
+
+/*5. Suppose same user, which have user_id '67', want to edit return_date from 2026-04-18 to 2026-05-01 of the rental of car_id '1234'
+
+Query:*/
+
+Update "Rental"
+SET return_date = '2026-05-01'
+WHERE customer_id = 67 AND pickup_date = '2026-04-15' AND car_id = 1234;
+
+/*6.Suppose same user, which have user_id '67', want to cancel the rental of car_id '1234'
+
+Query:*/
+
+DELETE FROM "Rental"
+WHERE customer_id = 67 AND pickup_date = '2026-04-15' AND return_date = '2026-05-01' AND car_id = 1234;
+
+/*7.Suppose the admin want to view all the rental car bookings between March 15th 2026 and March 18th 2026.
+
+Query:*/
+
+SELECT * FROM "Rental"
+WHERE return_date >= '2026-04-15' AND return_date <= '2026-04-18';
+
+/*8.Suppose the admin want to edit price_per_day of all rental car bookings by increasing the price by $1000.
+
+Query:*/
+
+UPDATE "Rental"
+SET price_per_day = price_per_day + 1000;
+
+/*9.Suppose the admin want to delete all rental car bookings that its rental_status is false.
+
+Query:*/
+
+DELETE FROM "Rental"
+WHERE rental_status = FALSE;
+
+
