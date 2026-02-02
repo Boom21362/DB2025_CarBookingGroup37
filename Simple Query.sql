@@ -39,7 +39,7 @@ Query:*/
 INSERT INTO logs (log_id, customer_id, "logI/O", timestamp)
 VALUEs(109,67,false,now());
 
-/83. Suppose user ,which have user_id '67',is booking a car ,car_id '1234', from shop ,shop_id '30', from 2026-04-15 to 2026-04-18 and will return at the same shop with no discount
+/*3. Suppose user ,which have user_id '67',is booking a car ,car_id '1234', from shop ,shop_id '30', from 2026-04-15 to 2026-04-18 and will return at the same shop with no discount
 
 Query:*/
 
