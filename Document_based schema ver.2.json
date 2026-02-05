@@ -1,0 +1,423 @@
+db.createCollection("administator", {
+  validator: {
+    $jsonSchema: {
+      title: "administator",
+      required: ["_id", "username"],
+      properties: {
+        _id: { bsonType: "objectId" },
+        admin_id: { bsonType: "int" },
+        username: { 
+          bsonType: "string",
+          maxLength: 50
+        },
+        pwd: { 
+          bsonType: "string",
+          maxLength: 50
+        },
+        fname: { 
+          bsonType: "string",
+          maxLength: 50
+        },
+        lname: { 
+          bsonType: "string",
+          maxLength: 50
+        },
+        email: { 
+          bsonType: "string",
+          maxLength: 50
+        },
+        phone_number: { 
+          bsonType: "string",
+          maxLength: 10
+        }
+      }
+    }
+  }
+});
+
+// Create unique index for admin_id
+db.administator.createIndex({ admin_id: 1 }, { unique: true });
+
+// ----------------------------
+// Collection: shop
+// Purpose: Store shop information
+// Merged from: shop and shop_desc tables
+// ----------------------------
+db.createCollection("shop", {
+  validator: {
+    $jsonSchema: {
+      title: "shop",
+      required: ["_id", "shop_name"],
+      properties: {
+        _id: { bsonType: "objectId" },
+        shop_id: { bsonType: "int" },
+        shop_name: { 
+          bsonType: "string",
+          maxLength: 50
+        },
+        email: { 
+          bsonType: "string",
+          maxLength: 50
+        },
+        phone_number: { 
+          bsonType: "string",
+          maxLength: 10
+        },
+        open_time: { bsonType: "string" },
+        closed_time: { bsonType: "string" },
+        price_min: { bsonType: ["double", "int", "decimal"] },
+        price_max: { bsonType: ["double", "int", "decimal"] },
+        address: { 
+          bsonType: "string",
+          maxLength: 50
+        },
+        map_location: { 
+          bsonType: "string",
+          maxLength: 10
+        },
+        soi: { 
+          bsonType: "string",
+          maxLength: 50
+        },
+        street: { 
+          bsonType: "string",
+          maxLength: 50
+        },
+        sub_district: { 
+          bsonType: "string",
+          maxLength: 50
+        },
+        district: { 
+          bsonType: "string",
+          maxLength: 50
+        },
+        province: { 
+          bsonType: "string",
+          maxLength: 50
+        },
+        postal_code: { 
+          bsonType: "string",
+          maxLength: 5
+        }
+      }
+    }
+  }
+});
+
+// Create unique index for shop_id and shop_name
+db.shop.createIndex({ shop_id: 1 }, { unique: true });
+db.shop.createIndex({ shop_name: 1 }, { unique: true });
+
+// Insert sample data for shop
+db.shop.insertOne({
+  shop_id: 30,
+  shop_name: "shop_1",
+  email: "shop_1@carbooking.com",
+  phone_number: "0856345566",
+  open_time: "07:00:00",
+  closed_time: "23:59:00",
+  price_min: 200,
+  price_max: 800,
+  address: "a",
+  map_location: "b",
+  soi: "c",
+  street: "d",
+  sub_district: "e",
+  district: "f",
+  province: "g",
+  postal_code: "h"
+});
+
+// ----------------------------
+// Collection: car
+// Purpose: Store car information
+// Merged from: car and car_info tables
+// ----------------------------
+db.createCollection("car", {
+  validator: {
+    $jsonSchema: {
+      title: "car",
+      required: ["_id", "shop_id"],
+      properties: {
+        _id: { bsonType: "objectId" },
+        car_id: { bsonType: "int" },
+        shop_id: { bsonType: "int" },
+        capacity: { bsonType: "int" },
+        brand: { 
+          bsonType: "string",
+          maxLength: 50
+        },
+        model: { 
+          bsonType: "string",
+          maxLength: 50
+        },
+        plate_number: { 
+          bsonType: "string",
+          maxLength: 50
+        },
+        car_serial: { 
+          bsonType: "string",
+          maxLength: 50
+        },
+        mileage: { bsonType: ["double", "int", "decimal"] },
+        production_year: { bsonType: "date" },
+        car_option: { 
+          bsonType: "string",
+          maxLength: 50
+        },
+        priceperday: { bsonType: ["double", "int", "decimal"] },
+        car_type: { 
+          bsonType: "string",
+          maxLength: 50
+        },
+        color: { 
+          bsonType: "string",
+          maxLength: 50
+        },
+        fuel_type: { 
+          bsonType: "string",
+          maxLength: 50
+        },
+        transmission: { 
+          bsonType: "string",
+          maxLength: 50
+        }
+      }
+    }
+  }
+});
+
+// Create unique index for car_id
+db.car.createIndex({ car_id: 1 }, { unique: true });
+// Create unique index for brand and model combination
+db.car.createIndex({ brand: 1, model: 1 }, { unique: true });
+
+// Insert sample data for car
+db.car.insertOne({
+  car_id: 1234,
+  shop_id: 30,
+  capacity: 4,
+  brand: "Toyota",
+  model: "Camry",
+  plate_number: "KS-1254 SKA",
+  car_serial: "TCS-128775",
+  mileage: 0,
+  production_year: new Date("2006-01-01")
+});
+
+// ----------------------------
+// Collection: customer
+// Purpose: Store customer information
+// Merged from: customer, phone_number, and driver_license tables
+// ----------------------------
+db.createCollection("customer", {
+  validator: {
+    $jsonSchema: {
+      title: "customer",
+      required: ["_id", "username"],
+      properties: {
+        _id: { bsonType: "objectId" },
+        customer_id: { bsonType: "int" },
+        username: { 
+          bsonType: "string",
+          maxLength: 50
+        },
+        pwd: { 
+          bsonType: "string",
+          maxLength: 50
+        },
+        email: { 
+          bsonType: "string",
+          maxLength: 50
+        },
+        phone_number: { 
+          bsonType: "string",
+          maxLength: 10
+        },
+        dl_number: { 
+          bsonType: "string",
+          maxLength: 8
+        },
+        address: { 
+          bsonType: "string",
+          maxLength: 100
+        },
+        account_status: { bsonType: "bool" },
+        phone_numbers: {
+          bsonType: "object",
+          properties: {
+            primary_number: { 
+              bsonType: "string",
+              maxLength: 10
+            },
+            secondary_number: { 
+              bsonType: "string",
+              maxLength: 10
+            },
+            emergency_number: { 
+              bsonType: "string",
+              maxLength: 10
+            }
+          }
+        },
+        driver_license: {
+          bsonType: "object",
+          properties: {
+            dl_number: { 
+              bsonType: "string",
+              maxLength: 8
+            },
+            fname: { 
+              bsonType: "string",
+              maxLength: 50
+            },
+            lname: { 
+              bsonType: "string",
+              maxLength: 50
+            },
+            date_of_birth: { bsonType: "date" },
+            expire_date: { bsonType: "date" }
+          }
+        }
+      }
+    }
+  }
+});
+
+// Create unique index for customer_id
+db.customer.createIndex({ customer_id: 1 }, { unique: true });
+// Create unique index for dl_number
+db.customer.createIndex({ dl_number: 1 }, { unique: true, sparse: true });
+// Create unique index for phone_number
+db.customer.createIndex({ phone_number: 1 }, { unique: true, sparse: true });
+// Create unique index for primary_number in phone_numbers
+db.customer.createIndex({ "phone_numbers.primary_number": 1 }, { unique: true, sparse: true });
+// Create unique index for dl_number in driver_license
+db.customer.createIndex({ "driver_license.dl_number": 1 }, { unique: true, sparse: true });
+
+// ----------------------------
+// Collection: Rental
+// Purpose: Store rental transaction information
+// ----------------------------
+db.createCollection("Rental", {
+  validator: {
+    $jsonSchema: {
+      title: "Rental",
+      required: ["_id", "customer_id", "car_id", "pickup_date", "return_date", "pickupShop_id", "returnShop_id"],
+      properties: {
+        _id: { bsonType: "objectId" },
+        customer_id: { bsonType: "int" },
+        car_id: { bsonType: "int" },
+        pickup_date: { bsonType: "date" },
+        return_date: { bsonType: "date" },
+        discount: { bsonType: "int" },
+        pickupShop_id: { bsonType: "int" },
+        returnShop_id: { bsonType: "int" },
+        rental_status: { bsonType: "bool" },
+        mileage_start: { bsonType: ["double", "int", "decimal"] },
+        mileage_end: { bsonType: ["double", "int", "decimal"] },
+        price_per_day: { bsonType: ["double", "int", "decimal"] }
+      }
+    }
+  }
+});
+
+// Create compound index for primary key equivalent
+db.Rental.createIndex({ customer_id: 1, car_id: 1, pickup_date: 1, return_date: 1 }, { unique: true });
+
+// ----------------------------
+// Collection: Manage
+// Purpose: Store relationship between administrators and shops
+// ----------------------------
+db.createCollection("Manage", {
+  validator: {
+    $jsonSchema: {
+      title: "Manage",
+      required: ["_id", "admin_id", "shop_id"],
+      properties: {
+        _id: { bsonType: "objectId" },
+        admin_id: { bsonType: "int" },
+        shop_id: { bsonType: "int" }
+      }
+    }
+  }
+});
+
+// Create compound index for primary key equivalent
+db.Manage.createIndex({ admin_id: 1, shop_id: 1 }, { unique: true });
+
+// ----------------------------
+// Collection: logs
+// Purpose: Store user login/logout activity logs
+// ----------------------------
+db.createCollection("logs", {
+  validator: {
+    $jsonSchema: {
+      title: "logs",
+      required: ["_id", "customer_id", "log_id"],
+      properties: {
+        _id: { bsonType: "objectId" },
+        log_id: { bsonType: "int" },
+        customer_id: { bsonType: "int" },
+        "logI/O": { bsonType: "bool" },
+        timestamp: { bsonType: "date" }
+      }
+    }
+  }
+});
+
+// Create compound index for primary key equivalent
+db.logs.createIndex({ customer_id: 1, log_id: 1 }, { unique: true });
+
+
+// ----------------------------
+// Auto-increment Counter Collection
+// Purpose: Simulate PostgreSQL sequences for auto-incrementing IDs
+// ----------------------------
+db.createCollection("counters", {
+  validator: {
+    $jsonSchema: {
+      title: "counters",
+      required: ["_id", "sequence_value"],
+      properties: {
+        _id: { bsonType: "string" },
+        sequence_value: { bsonType: "int" }
+      }
+    }
+  }
+});
+
+// Initialize counters for all sequences
+db.counters.insertMany([
+  { _id: "Manage_admin_id_seq", sequence_value: 1 },
+  { _id: "Manage_shop_id_seq", sequence_value: 1 },
+  { _id: "Rental_car_id_seq", sequence_value: 1 },
+  { _id: "Rental_customer_id_seq", sequence_value: 1 },
+  { _id: "Rental_pickupShop_id_seq", sequence_value: 1 },
+  { _id: "Rental_returnShop_id_seq", sequence_value: 1 },
+  { _id: "administator_admin_id_seq", sequence_value: 1 },
+  { _id: "car_car_id_seq", sequence_value: 1 },
+  { _id: "car_info_car_id_seq", sequence_value: 1 },
+  { _id: "car_shop_id_seq", sequence_value: 1 },
+  { _id: "customer_customer_id_seq", sequence_value: 1 },
+  { _id: "logs_customer_id_seq", sequence_value: 1 },
+  { _id: "logs_login_id_seq", sequence_value: 1 },
+  { _id: "phone_number_customer_id_seq", sequence_value: 1 },
+  { _id: "shop_desc_shop_id_seq", sequence_value: 1 },
+  { _id: "shop_shop_id_seq", sequence_value: 1 }
+]);
+
+// ----------------------------
+// Helper function to get next sequence value
+// Purpose: Simulate PostgreSQL nextval() function
+// ----------------------------
+function getNextSequence(sequenceName) {
+  var sequenceDocument = db.counters.findAndModify({
+    query: { _id: sequenceName },
+    update: { $inc: { sequence_value: 1 } },
+    new: true,
+    upsert: true
+  });
+  return sequenceDocument.sequence_value;
+}
+
