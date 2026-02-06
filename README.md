@@ -1,3 +1,5 @@
+<img width="672" height="256" alt="selectallfromcar - Color" src="https://github.com/user-attachments/assets/490d41e5-fe27-435c-9a06-270aab570689" />
+
 # Car Rental Management System (`CarBookingGroup37`)
 
 This repository contains the PostgreSQL database schema for a **Car Rental Management System**. The system manages a fleet of vehicles across multiple shop locations, tracks customer eligibility via driver's licenses, and logs the full lifecycle of rental transactions.
