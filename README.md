@@ -1,4 +1,4 @@
-<img width="672" height="256" alt="selectallfromcar - Color" src="https://github.com/user-attachments/assets/490d41e5-fe27-435c-9a06-270aab570689" />
+<img width="300" height="250" alt="selectallfromcar - Color" src="https://github.com/user-attachments/assets/490d41e5-fe27-435c-9a06-270aab570689" />
 
 # Car Rental Management System (`CarBookingGroup37`)
 
